@@ -223,15 +223,8 @@ var Handler = class TilingMoveHandler {
     }
 
     _onMoving(grabOp, window, topTileGroup, freeScreenRects) {
-        // Use the current event's coords instead of global.get_pointer
-        // to support touch...?
-        const event = Clutter.get_current_event();
-        if (!event)
-            return;
+        const [eventX, eventY] = global.get_pointer()
 
-        const [eventX, eventY] = grabOp === Meta.GrabOp.KEYBOARD_MOVING
-            ? global.get_pointer()
-            : event.get_coords();
         this._lastPointerPos = { x: eventX, y: eventY };
 
         const ctrl = Clutter.ModifierType.CONTROL_MASK;
